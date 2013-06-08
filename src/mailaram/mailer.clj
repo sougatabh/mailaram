@@ -23,10 +23,9 @@
   (doto (new Properties)(.put "mail.smtp.auth" "true")(.put "mail.smtp.starttls.enable" "true")
     (.put "mail.smtp.host" "smtp.gmail.com")(.put "mail.smtp.port" "587")))
 
-(defn sendmail
-     [^String to ^String from ^String subject ^String msg ^String smtpuser ^String smtppassword]
-     (log/debug "Sending mail to " to ",from " from)
-     (let [authenticator (proxy [javax.mail.Authenticator] []
+(defn send-mail
+  [^String to ^String from ^String subject ^String msg ^String smtpuser ^String smtppassword ^String mailtype]
+  (let [authenticator (proxy [javax.mail.Authenticator] []
                           (getPasswordAuthentication
                             []
                             (javax.mail.PasswordAuthentication.
@@ -39,28 +38,21 @@
        (.setFrom  message (InternetAddress. from))
        (.setSubject message subject)
        (.setRecipients message (javax.mail.Message$RecipientType/TO) (InternetAddress/parse to))
-       (.setText message  msg)
+       (log/debug "Sending mail of type= " mailtype)
+       (if(= "text" mailtype)
+               (.setText message  msg)
+             (.setContent message  msg HTML_TYPE))
        (Transport/send message)))
+(defn sendmail
+     [^String to ^String from ^String subject ^String msg ^String smtpuser ^String smtppassword]
+     (log/debug "Sending mail to " to ",from " from)
+     (send-mail to  from  subject  msg  smtpuser  smtppassword "text"))
 
 
 (defn send-html-mail
      [^String to ^String from ^String subject ^String msg ^String smtpuser ^String smtppassword]
      (log/debug "Sending mail to " to ",from " from)
-     (let [authenticator (proxy [javax.mail.Authenticator] []
-                          (getPasswordAuthentication
-                            []
-                            (javax.mail.PasswordAuthentication.
-                             smtpuser smtppassword)))
-           properties (get-properties)
-           session (javax.mail.Session/getInstance properties authenticator)
-           
-           message (MimeMessage. session);;Passing the session argument to the constructor
-           ]
-       (.setFrom  message (InternetAddress. from))
-       (.setSubject message subject)
-       (.setRecipients message (javax.mail.Message$RecipientType/TO) (InternetAddress/parse to))
-       (.setContent message  msg HTML_TYPE)
-       (Transport/send message)))
+     (send-mail to  from  subject  msg  smtpuser  smtppassword "htmlmail"))
 
 
 (defn send-mail-with-attachment
