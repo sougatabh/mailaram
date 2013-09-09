@@ -1,20 +1,13 @@
 # mailaram
-This is a simple mail library to send mail using gmail smtp service.
+
+A clojure library to send mail using gmail smtp server
 
 ## Usage
 
-## For Sending Simple mail
-sendmail("to@gmail.com" "from@gmail.com" "My Email Subject" "Email Body" "smtpusername@gmail.com" "smtpse3ret")
-
-## For Sending HTML mail
-send-html-mail("to@gmail.com" "from@gmail.com" "My Email Subject" "<html><body>Email Body</body></html>" "smtpusername@gmail.com" "smtpse3ret")
-
-## For Sending mail with attachment
-send-mail-with-attachment("to@gmail.com" "from@gmail.com" "My Email Subject" "Email Body" "smtpusername@gmail.com" "smtpse3ret" "/home/user/attachment.txt")
-
+(sendmail to from subject message smtpusername smtppassword)
 
 ## License
 
-Copyright © 2013 Sougata Bhattacharya
+Copyright © 2013 FIXME
 
 Distributed under the Eclipse Public License, the same as Clojure.

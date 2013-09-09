@@ -1,6 +1,6 @@
-(defproject mailer "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject mailaram "0.1.0"
+  :description "Simple clojure lib to send mail using GMAIL smtp"
+  :url "https://github.com/sougatabh/mailaram"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
