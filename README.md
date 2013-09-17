@@ -18,7 +18,7 @@ Supported Clojure versions:  1.4, 1.5
 ###For sending HTML mail
 `(send-html-mail to from subject message smtpusername smtppassword)`
 ###For sending Mail with attachment
-`(send-html-mail to from subject message smtpusername smtppassword fileFullpath)`
+`(send-mail-with-attachment to from subject message smtpusername smtppassword fileFullpath)`
 
 
 ## Getting in touch
